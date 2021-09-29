@@ -1,5 +1,6 @@
 package com.example.hackillinoisstaffappproj;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.Text;
-
-public class MentorsRVAdapter extends RecyclerView.Adapter<MentorsRVAdapter.Viewholder {
+public class MentorsRVAdapter extends RecyclerView.Adapter<MentorsRVAdapter.Viewholder> {
 
     private ArrayList<Mentor> mentors = new ArrayList<>();
 
@@ -21,12 +20,14 @@ public class MentorsRVAdapter extends RecyclerView.Adapter<MentorsRVAdapter.View
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mentors_list_item, parent, false);
+        Viewholder holder = new Viewholder(view);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-
+        holder.txtName.setText(mentors.get(position).getFirstName());
     }
 
     @Override

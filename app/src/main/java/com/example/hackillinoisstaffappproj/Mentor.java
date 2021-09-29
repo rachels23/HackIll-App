@@ -1,46 +1,53 @@
 package com.example.hackillinoisstaffappproj;
 
 public class Mentor {
-    private String name;
-    private String email;
-    private String imageUrl;
+    private String firstName;
+    private String lastName;
+    private String description;
+    private String profile;
 
-    public Mentor(String name, String email, String imageUrl) {
-        this.name = name;
-        this.email = email;
-        this.imageUrl = imageUrl;
+    public Mentor(String firstName, String lastName, String description, String profile) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.description = description;
+        this.profile = profile;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getDescription() {
+        return description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     @Override
     public String toString() {
         return "Mentor{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + profile + '\'' +
                 '}';
     }
 }

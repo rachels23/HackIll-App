@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HackIllinois staff app proj</string>
+    <string name="mentor_name">Mentor Name</string>
 </resources>
