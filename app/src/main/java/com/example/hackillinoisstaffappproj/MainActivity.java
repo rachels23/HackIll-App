@@ -12,6 +12,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.VolleyError;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -19,6 +21,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import com.android.volley.Response;
 import com.android.volley.Request;
@@ -47,14 +50,35 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
 
-        JSONObject r = requestFuture.get();
-        JSONArray a = r.getJSONArray("data");
-        for (int i = 0; i < a.length(); i++) {
-            JSONObject k = a.getJSONObject(i);
-            mentors.add(new Mentor(k.getString("firstName"), k.getString("lastName"), k.getString("description"), k.getString("profile")));
+        JSONObject r = null;
+        try {
+            r = requestFuture.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
-        //mentors.add(new Mentor("Mentor1", "last1", "description of m1", "https://hackillinois-upload.s3.amazonaws.com/photos/mentors/josh_sanchez.jpg"));
-        //mentors.add(new Mentor("Mentor2", "last2", "description of m1", "https://hackillinois-upload.s3.amazonaws.com/photos/mentors/default.png"));
+        JSONArray a = null;
+        try {
+            a = r.getJSONArray("data");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject k = null;
+            try {
+                k = a.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                mentors.add(new Mentor(k.getString("firstName"), k.getString("lastName"), k.getString("description"), k.getString("profile")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        mentors.add(new Mentor("Mentor1", "last1", "description of m1", "https://hackillinois-upload.s3.amazonaws.com/photos/mentors/josh_sanchez.jpg"));
+        mentors.add(new Mentor("Mentor2", "last2", "description of m1", "https://hackillinois-upload.s3.amazonaws.com/photos/mentors/default.png"));
 
         MentorsRVAdapter adapter = new MentorsRVAdapter();
         adapter.setMentors(mentors);
